@@ -46,7 +46,16 @@ Steps to consider:
 > NOTE: Now every item on `instancetable` does not requiered username, password, and token.
 
 ### PR-remove-instance-table-dependency-from-concerto_gateway
-TBD
+Right now the `concerto_gateway.py` is using a mechanism to identify and map concerto instances to send messages to the corresponding concerto intstance, this should be remove because now the adapter only handle one concerto instance.
+
+Also, the messages send to the concerto sqs queue are populated with `fleet_id` and `concerto_url` as message attribute, this attributes are no longer needed.
+
+Steps to consider:
+- Delete `instance_map` dict from `concerto_gateway.py`.
+- Use only one `ConcertoApi` object instance instead of looping through `instance_map` dict on `concerto_gateway.py`.
+- Refactor how we stop the threads for every concerto instance on `concerto_gateway.py`.
+- Remove loop for `instance_map` dict and send message to the unique `fleet_id` from `concerto_gateway/queue_worker.py`.
+- Test that asset is still created on the `device_table`.
 
 ### PR-remove-concerto-instances-functionality-from-code
 Now that we will only use one concerto intansce there is no need to loop over all the concerto instances. This behavour should be change on every file that loops concerto instances.
@@ -54,14 +63,9 @@ Now that we will only use one concerto intansce there is no need to loop over al
 The `instance_table` is used on couple of files to perform the expected behaviour. However, this is no longer needed so we should remove the logic and change the lambda behavour to incorporate a single concerto instance without the need of querying the `instance_table`.
 
 Steps to consider:
-- Delete `instance_map` dict from `concerto_gateway.py`.
-- Use only one `ConcertoApi` object instance instead of looping through `instance_map` dict on `concerto_gateway.py`.
-- Refactor how we stop the threads for every concerto instance on `concerto_gateway.py`.
-- Remove loop for `instance_map` dict and send message to the unique `fleet_id` from `concerto_gateway/queue_worker.py`.
 - Remove all functionality regarding `instance_table` variable from `registrar_lambda_function.py`.
 - Remove `get_concerto_instance_by_url()` method from `registrar_lambda_function.py`.
 - Remove all functionality regarding `instance_table` variable from `update_device_in_device_table()` method in `registrar_lambda_function.py`.
-- Test that asset is still created on the `device_table`.
 - Remove concerto instances looping from:
 	- concerto_gateway.py
 	- concerto_gateway/queue_worker.py
@@ -89,8 +93,6 @@ Steps to consider:
 
 ### PR-cleanup-code
 The Dynamodb `instance_table` must be removed by the end of this epic. So that the depency from this table is completely decouple from the adapter.
-
-Also, tests that are configured to use `instance_table` must be modify by deleting the functionality of the instance table form the tests.
 
 Steps to consider:
 - Remove `instance_table` resource form `template.yml`
