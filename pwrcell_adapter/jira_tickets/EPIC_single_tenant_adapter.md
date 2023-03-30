@@ -21,25 +21,6 @@
 > 4 Files to be `delete` - WIP
 
 
-## PR's to be created
-
-2. PR-remove-concerto-instance-logic-from-concerto_gateway.py
-	- Delete `instance_map` dict from code.
-	- Use only one `ConcertoApi` object instance instead of looping through `instance_map` dict.
-	- Refactor how we stop the threads for every concerto instance.
-
-3. PR-remove-concerto-instance-logic-from-concerto_gateway/queue_worker.py
-	- Remove loop for `instance_map` dict and send message to the unique `fleet_id`.
-
-6. PR-remove-concerto-instance-logic-from-registrar_lambda_function.py
-	- Remove all functionality regarding `instance_table` variable from `lambda_handler`.
-	- Remove `get_concerto_instance_by_url()` method from code.
-	- Remove all functionality regarding `instance_table` variable from `update_device_in_device_table()` method.
-
-10. PR-delete-fleet-builder-lambda -> WIP
-
-
-
 ## PR's ordered
 
 ### PR-set-concerto-root-url-as-deployment-parameter
@@ -77,11 +58,31 @@ Steps to consider:
 	- registrar_poller_lambda_function.py
 - Test that asset is still created on the `device_table`.
 
-### PR-remove-fleet-id-and-concerto-url-from-messages-attributes
+### PR-remove-fleet-id-and-concerto-url-from-messages-attributes-sent-concerto-sqs
+Messages sent to concerto sqs queue are oftenly attached with `fleet_id` as message attribute for the `concerto_gateway/queue_worker.py` to map if the `fleet_id` is present on each concerto instance. The need of this is no longer useful since we are moving to a single `fleet_id` for every asset.
 
+Steps to consider:
+- Remove `fleet_id` message attribute from:
+	- telemetry_processor_lambda.py
+	- registrar_poller_lambda_function.py
+	- registrar_lambda_function.py
+	- concerto_gateway/queue_worker.py
+- Delete `get_message_attribute` and `test_get_message_attribute` file.
+- **FIX TESTS** to incorporate new messages without `fleet_id` message attribute.
+- Test that asset is still created on the `device_table`.
 
 ### PR-remove-instance-table-functionality-from-lambdas
+The `instance_table` is used on couple of files to perform the expected behaviour. However, this is no longer needed so we should remove the logic and change the lambda behavour to incorporate a single concerto instance without the need of querying the `instance_table`.
 
+Steps to consider:
+- Delete `instance_map` dict from `concerto_gateway.py`.
+- Use only one `ConcertoApi` object instance instead of looping through `instance_map` dict on `concerto_gateway.py`.
+- Refactor how we stop the threads for every concerto instance on `concerto_gateway.py`.
+- Remove loop for `instance_map` dict and send message to the unique `fleet_id` from `concerto_gateway/queue_worker.py`.
+- Remove all functionality regarding `instance_table` variable from `registrar_lambda_function.py`.
+- Remove `get_concerto_instance_by_url()` method from `registrar_lambda_function.py`.
+- Remove all functionality regarding `instance_table` variable from `update_device_in_device_table()` method in `registrar_lambda_function.py`.
+- Test that asset is still created on the `device_table`.
 
 ### PR-fix-tests
 Tests that are configured to use `instance_table` should be modify by deleting the functionality of the instance table form the tests.
@@ -100,3 +101,5 @@ Steps to consider:
 - Remove `instance_table` resource form `template.yml`
 - Remove all `env_variables` relates to `INSTANCE_TABLE` from aws resources.
 - Test that asset is still created on the `device_table`.
+
+### PR-delete-fleet-builder-lambda -> WIP
