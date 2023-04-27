@@ -38,7 +38,6 @@ Steps to consider:
 - Create `ConcertoSecrets` class to manage secrets retreiving and rotation.
 - Retrieve `ConcertoCredentials` from secrets manager, pass `SecretId` as `env_variables` to `concert_gateway` lambda to grab secrets values and successfully instanciate `ConcertoApi` class to make proper requests and auth process.
 - Assert username and password values on `CocnertoApi` constructor.
-- Test that asset is still created on the `device_table`.
 - Implement secret rotation on ConcertoApi `auth()` method.
 - Delete `update_token()` file and method from `concerto_api.py`.
 - Test that asset is still created on the `device_table`.
