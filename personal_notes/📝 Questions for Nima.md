@@ -1,5 +1,5 @@
 
-## Questions
+## Questions 1
 1. Which assets are involve in this adapter? 
 	- Inverters
 		- Photovoltaics Panels (PV’s)
@@ -51,23 +51,20 @@
 
 12. How can we get telemetry for the fleet that the asset is associated with
 	- Talk to @Fariz_Hajiyev at vpp-integrations-0 slack channel to connect CES telemetry to the adapter kinesis stream.
-  
+
+
+## Questions 2
+1. Can a system handle `real_power` and and `sell` mode at the same time?
 
 ## CES user credentials
 
 **Testing CES user credentials**
-username:
-6453pa825t1reat5or8319a4e4
-
-Password:
-b55suafab7sg9pf1pl86lutaf2gnm2938t8vmb5le4ovuq1dmeo
+username: 6453pa825t1reat5or8319a4e4
+Password: b55suafab7sg9pf1pl86lutaf2gnm2938t8vmb5le4ovuq1dmeo
 
 **Prod CES user credentials**
-username:
-6uvn621ujbcu7nk3hs4ipfgdj2
-
-Password:
-10998a1shg25lp4r33ip89dvlb7l5dk719o0r5ctcrobo2oo6inf
+username: 6uvn621ujbcu7nk3hs4ipfgdj2
+Password: 10998a1shg25lp4r33ip89dvlb7l5dk719o0r5ctcrobo2oo6inf
 
 
 ## PWRCELL EPICS

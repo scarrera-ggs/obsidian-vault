@@ -1,15 +1,8 @@
-### Overall
-- 👷🏼‍♂️ Implement pydantic models
-- 👷🏼‍♂️ Prepare meeting for Friday (see email from nick)
-- ✅ Prepare questions for ids review on may 2
-- ✅ Read ids
-- ✅ Fix bug for simulated asset (wait for umber to update the ticket)
-- ✅ Fix 401 unauthorized for Pwrcell gateway
-- ✅ Read tickets for next sprint.
-	- ✅ AP-604
-	- ✅ AP-304
-	- ✅ AP-305
-- ✅ Address comment on AP-790
+## Overall
+
+### Soon
+- Conifgure postman environment.
+
 
 ### Pwrcell Adapter
 - 👷🏼‍♂️ Hoist IncommingTelemtryRole ARN on kinesis.yml outputs.
@@ -31,4 +24,22 @@
 - 👷🏼‍♂️ Include capabilities on deploy.sh for kinesis stream and delete samconfig.toml file
 - 👷🏼‍♂️ **Verify that fleet ids receive on telemetry processor is the same of the adapter fleet_id parameter**
 - 👷🏼‍♂️ **Remove sort key from device_table and simulator_table**
-
+- 👷🏼‍♂️ Implement more detail on pydantic datamodel for CESRequest class
+```text
+class CESControlMessage(CustomBaseModel):
+	    controlMessageId: str
+	    startTime: datetime
+	    duration: int
+	    systemMode: str
+	    cancelIfOvershadowed: bool = False
+	    cancelOnExternalChange: bool = False
+	
+	
+	class CESControlMessages(CustomBaseModel):
+	    control_messages: List[CESControlMessage]
+	
+	
+	class CESCancelMessages(CustomBaseModel):
+	    controlMessageIds: List[str]
+```
+- 👷🏼‍♂️ Improve Concerto auth process by creating a new lambda to retreive token (as we do with CES auth)

@@ -1,6 +1,31 @@
   
 ## To Ask
-- Should we use a async/await on requests?
+- On Python Learnings meeting talk about:
+	- AWS Workbench
+
+
+## For Later
+- Why AWS costs are increasing?
+
+
+## To Remember
+- 🧠 Update onboarding process proposal?
+- 👷🏼‍♂️ What’s the difference between DR and PR goal types? What kind of assets are in those goal types?
+- ✅ How can I SSH to concerto and check mini adapters?
+	- SSH concerto-adapters.qa
+- 👨🏻‍💻 git clean -d -x -f src
+- 👨🏻‍💻 IEEE-754 floating number standards
+
+- **Acronyms**
+	- Emergency Solar Management
+	- Scope of Work
+	- Commercial Exporter 
+	- Master Service Agreements
+	- Embedded Metric Format
+	- State Of Charge
+
+
+## Other
 
 ### Steps To Deploy Adapter And Test It
 - Put new record on instance table
@@ -16,21 +41,3 @@
 	- Steps to delete concerto instance from instance table.
 	- Check that assets are updated successfully.
 -   Create documentation for testing the adapter.
-
-## For Later
-- Why AWS costs are increasing?
-
-## To Remember
-- 🧠 Update onboarding process proposal?
-- 👷🏼‍♂️ What’s the difference between DR and PR goal types? What kind of assets are in those goal types?
-- ✅ How can I SSH to concerto and check mini adapters?
-	- SSH concerto-adapters.qa
-- 👨🏻‍💻 git clean -d -x -f src
-
-- **Acronyms**
-	- Emergency Solar Management
-	- Scope of Work
-	- Commercial Exporter 
-	- Master Service Agreements
-	- Embedded Metric Format
-	- State Of Charge
