@@ -78,5 +78,8 @@ AC/DC Epic
 Pwrcell Epic v3.0
 https://enbala.app.box.com/file/810193910556
 
-CES API CONTROL MESSAGES WORKFLOW
+CES API Docs
+https://generac-ces-api.neur.io/doc
+
+CES API Control messages workflow
 ![[ODIN-Real power test cases-150523-211603 (1) 1.pdf]]
