@@ -68,6 +68,15 @@ Password: 10998a1shg25lp4r33ip89dvlb7l5dk719o0r5ctcrobo2oo6inf
 
 
 ## PWRCELL EPICS
+
+Single Tenant Epic
 [https://enbala.atlassian.net/wiki/spaces/PM/pages/2569109542/PWRcell+Adapter+Enhancement+-+support+multiple+Kinesis+streams+for+incoming+telemetry](https://enbala.atlassian.net/wiki/spaces/PM/pages/2569109542/PWRcell+Adapter+Enhancement+-+support+multiple+Kinesis+streams+for+incoming+telemetry)
 
+AC/DC Epic
 [https://enbala.atlassian.net/wiki/spaces/PM/pages/2504196108/PWRcell+Adapter+Control+and+Commissioning+Enhancements](https://enbala.atlassian.net/wiki/spaces/PM/pages/2504196108/PWRcell+Adapter+Control+and+Commissioning+Enhancements)
+
+Pwrcell Epic v3.0
+https://enbala.app.box.com/file/810193910556
+
+CES API CONTROL MESSAGES WORKFLOW
+![[ODIN-Real power test cases-150523-211603 (1) 1.pdf]]

@@ -23,6 +23,7 @@
 	- Master Service Agreements
 	- Embedded Metric Format
 	- State Of Charge
+	- Outbound Control Adapter
 
 
 ## Other
