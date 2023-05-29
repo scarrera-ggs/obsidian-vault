@@ -82,4 +82,4 @@ CES API Docs
 https://generac-ces-api.neur.io/doc
 
 CES API Control messages workflow
-![[ODIN-Real power test cases-150523-211603 (1) 1.pdf]]
+![[CES API Controls behaviour.pdf]]
