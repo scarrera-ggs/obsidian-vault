@@ -55,27 +55,101 @@ The CES State Poller will scan the `device_table` and check for devices with `la
 - Inconsistency on `last_heard_at` timeout 10 minutes here and 15 minutes in Fleet Builder Lambda.
 
 
-## Proposed Asset Commissioning
+# Proposed Asset Registration Process
 
-![[Proposed Pwrcell asset commissioning.svg]]
-- Protobuf records are received by Telemetry Processor Lambda; If the device exists in the `device_table` telemetry will be sent to concerto for batteries, photovoltaics, site meter, and inverter.
-- Registrar Poller will poll for devices registered in Concerto Instance every 1 minute, then Concerto Gateway will invoke Registrar Lambda with the all asset paginated response.
-- Registrar Lambda will: 
-	- Filter devices that belongs to the Pwrcell Adapter and writes them into the `data_table`.
-	- Sends message to CES Queue requesting metadata for each device stored on the table, then the Pwrcell Gateway Lambda will invoke the `device_metadata_processor` to identify if it is a AC/DC coupled system.
-	- If `AUTO_COMMISSIONING` is enabled the Registrar will create the inverter and the site in Concerto, else, avoid this step.
-- CES State Poller will request `system_status` every 15 minutes, later the Pwrcell Gateway will invoke CES State Processor with the response payload.
-- CES State Processor will update `remote_state` of each device that exists in the `device_table` based on the `system_status` received from the response payload.
 
-**Advantages of this approach**
+## High level implementation
+
+Concerto contains information about the assets registered in Pwrfleet, these assets are added manually to Concerto by the NOC team. Concerto is the source of truth for existing devices, so, the adapter must maintain persistent information about these assets and populate them with the necessary information to allow the adapter to function properly.
+
+![[Proposed Asset Registration - High level diagram.svg]]
+
+Concerto provides information about the devices but not all the information required is provided. Thus, the Adapter must gather the remaining information from other resources, like: CES API, and Kinesis Stream records.
+
+![[Proposed Asset Registration - Extra information gathering diagram.svg]]
+
+
+## Detailed Implementation
+
+In order for the Adapter to work properly a Device must have the following information:
+
+- `remote_id`
+	- `type`: String.
+	- `description`: Unique identifier for an asset. 
+	- `gathered from`: Concerto.
+
+- `remote_state`
+	- `type`: String.
+	- `description`: remote state of an asset - possible values: [`ONLINE`, `OFFLINE`, `ERROR`]
+	- `gathered from`: This is a dependant variable that can be determine as follow:
+		**From Kinesis Stream record:**
+		- If adapter has not received an `EnergyRecordSet` message from Kinesis stream for the past configurable interval (15 minutes) -> Mark remote_state as `OFFLINE`.
+		- If the `StatusName` from the system equal `SUCCESS` **AND** the `InverterState` field in the `EnergyRecordSet` message is in between 0x7000 and 0x8000 then Inverter and Site Meter remote states gets mapped to `ONLINE`.
+		- For any other StatusName (UNKNOWN, NEVER_CONNECTED, DISCONNECTED, or ERROR) mark the remote_state as `ERROR`.
+		**From CES API:**
+		- Since a device can stop sending telemetry for whatever reason the adapter needs to poll for system status continuously by querying CES API `{{root_url}}/sites/v1/{{site_id}}/devices/metadata`.
+
+- `fleet_id`
+	- `type`: String
+	- `description`: Unique identifier for a fleet in Pwrfleet.
+	- `gathered from`: Config parameter that can be passed as environment variable.
+
+- `site_id`
+	- `type`: String
+	- `description`: Unique identifier for a site.
+	- `gathered from`: Concerto.
+
+- `site`
+	- `type`: Dict.
+	- `description`: Site information.
+	- `gathered from`: Concerto.
+
+- `rated_power`
+	- `type`: Int.
+	- `description`: Rated power of the asset.
+	- `gathered from`: Concerto.
+
+- `ac_coupled`
+	- `type`: Bool.
+	- `description`: Determines whether the asset is AC or DC coupled.
+	- `gathered from`: CES API by querying `{{root_url}}/sites/v1/{{site_id}}/devices/metadata?inverterSetting=true` and check for `acPVPowerRating` within the response.
+		- If **all** of the `acPVPowerRating` values are zero, mark the asset as DC coupled  
+		- If **any** of the `acPVPowerRating` values are non-zero, mark the asset as AC coupled
+		- If the device has inverters with both zero and non-zero values, log an error including the systemId with enough context for an operator to determine the underlying issue
+
+- `is_simulated`
+	- `type`: Bool.
+	- `description`: Determine if an asset is simulated.
+	- `gathered from`: Concerto.
+
+- `connected_batteries`
+	- `type`: List[Dict].
+	- `description`: Connected batteries information.
+	- `gathered from`: Concerto.
+
+- `connected_photovoltaics`
+	- `type`: List[Dict]
+	- `description`: Connected photovoltaics information.
+	- `gathered from`: Concerto.
+
+- `last_heard_at`
+	- `type`: Datetime.
+	- `description`: Last time telemetry was received for an asset.
+	- `gathered from`: Kinesis Stream record.
+
+- `registered_at`
+	- `type`: Datetime.
+	- `description`: Date of the asset being register on the `DataTable`.
+	- `gathered from`: Auto calculated.
+
+
+## Advantages of this approach
+
 - Complete isolation of processes between lambdas
 - One source of truth: Concerto.
 - Removed extra logic and unused lambdas.
 - Removed multiple sources of truth: Concerto, and CES API.
+- Easy to understand the behaviour of the lambdas.
+- Easy to make future changes to the code.
+- Less time to implement new features
 
-
-### Questions to ask
-
-- Which should be the timeout limit for setting an asset as `OFFLINE` 10 or 15 minutes?
-- How frequent the `system_status` should be polled? (right now is every 15 minutes).
-- 

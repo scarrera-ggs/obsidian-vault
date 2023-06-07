@@ -39,3 +39,4 @@ class CESControlMessage(CustomBaseModel):
 	    controlMessageIds: List[str]
 ```
 - 👷🏼‍♂️ Improve Concerto auth process by creating a new lambda to retreive token (as we do with CES auth)
+- 👷🏼‍♂️ remove all `pytz` and `simplejson` dependencies.
