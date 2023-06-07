@@ -146,7 +146,7 @@ Concerto provides information about the devices but not all the information requ
 
 ### Registration Narrative
 
-
+![[Pwrcell Asset commissioning - Page 1 (1).svg]]
 
 1. 
 

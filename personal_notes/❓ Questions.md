@@ -1,5 +1,6 @@
   
 ## To Ask
+- Do we need to add a filter for sending controls only for `ONLINE` assets?
 - look at vpp docs to run concerto locally (https://github.com/Enbala/vpp).
 
 
