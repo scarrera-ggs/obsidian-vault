@@ -1,8 +1,5 @@
 ## Overall
 
-### Soon
-- Conifgure postman environment.
-
 
 ### Pwrcell Adapter
 - 👷🏼‍♂️ Hoist IncommingTelemtryRole ARN on kinesis.yml outputs.

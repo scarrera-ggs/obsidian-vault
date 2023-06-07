@@ -52,6 +52,12 @@
 12. How can we get telemetry for the fleet that the asset is associated with
 	- Talk to @Fariz_Hajiyev at vpp-integrations-0 slack channel to connect CES telemetry to the adapter kinesis stream.
 
+13. The `{{root_url}}/sites/v1/{{site_id}}/devices/metadata?inverterSetting=true` only returns only one system, despite the sites has multiple systems.
+14. How is the registration process carry on?
+15. There are currently two ways of identifying the system status by using the `InverterState` or the `StatusName` - why both? - Why the need to check if `InverterState` is greater than or equal to 0x7000 and less than 0x8000 then Inverter and siteMeter remoteStates gets mapped to “ERROR”?
+16. Which are the possible values for a `systemStatus` UNKNOWN, NEVER_CONNECTED, DISCONNECTED, ERROR, SUCCESS?
+17. What happens when there is miss-configuration from Concerto regarding batteries, site or pvs? should we log a warning or should we handle the differences?
+
 
 ## Questions 2
 1. Can a system handle `real_power` and and `sell` mode at the same time?

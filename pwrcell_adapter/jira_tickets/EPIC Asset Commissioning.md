@@ -55,7 +55,7 @@ The CES State Poller will scan the `device_table` and check for devices with `la
 - Inconsistency on `last_heard_at` timeout 10 minutes here and 15 minutes in Fleet Builder Lambda.
 
 
-# Proposed Asset Registration Process
+# Proposed asset registration process
 
 
 ## High level implementation
@@ -69,9 +69,10 @@ Concerto provides information about the devices but not all the information requ
 ![[Proposed Asset Registration - Extra information gathering diagram.svg]]
 
 
-## Detailed Implementation
+## Implementation details
 
-In order for the Adapter to work properly a Device must have the following information:
+
+### Required asset information
 
 - `remote_id`
 	- `type`: String.
@@ -143,13 +144,9 @@ In order for the Adapter to work properly a Device must have the following infor
 	- `gathered from`: Auto calculated.
 
 
-## Advantages of this approach
+### Registration Narrative
 
-- Complete isolation of processes between lambdas
-- One source of truth: Concerto.
-- Removed extra logic and unused lambdas.
-- Removed multiple sources of truth: Concerto, and CES API.
-- Easy to understand the behaviour of the lambdas.
-- Easy to make future changes to the code.
-- Less time to implement new features
+
+
+1. 
 

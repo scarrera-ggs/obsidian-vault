@@ -1,12 +1,5 @@
   
 ## To Ask
-- The `{{root_url}}/sites/v1/{{site_id}}/devices/metadata?inverterSetting=true` only returns only one system, despite the sites has multiple systems.
-- How is the registration process carry on?
-- There are currently two ways of identifying the system status by using the `InverterState` or the `StatusName` - why both? - Why the need to check if `InverterState` is greater than or equal to 0x7000 and less than 0x8000 then Inverter and siteMeter remoteStates gets mapped to “ERROR”?
-- Which are the possible values for a `systemStatus` UNKNOWN, NEVER_CONNECTED, DISCONNECTED, ERROR, SUCCESS?
-- What happens when there is miss-configuration from Concerto regarding batteries, site or pvs? should we log a warning or should we handle the differences?
-
-
 - look at vpp docs to run concerto locally (https://github.com/Enbala/vpp).
 
 
