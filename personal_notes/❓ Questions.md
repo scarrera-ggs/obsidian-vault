@@ -1,7 +1,11 @@
-  
+## To Do
+- Concerto maintenance could take up to 2 hours.
+- Pwrcell v2.0 Release version notes
+- list subscriptions issues
+
+
 ## To Ask
-- Do we need to add a filter for sending controls only for `ONLINE` assets?
-- look at vpp docs to run concerto locally (https://github.com/Enbala/vpp).
+- talk about graphql transaction for create site, create inverter, associate inverter with site
 
 
 ## For Later
@@ -24,6 +28,7 @@
 	- Embedded Metric Format
 	- State Of Charge
 	- Outbound Control Adapter
+	- Standard Operational Procedure
 
 
 ## Other
@@ -36,12 +41,6 @@
 - Create event
 - Check device table for the asset created on concerto.
 
-### To Do
-- Create documentation for migrating existing deployments.
-	- Deploy adapter (point to new adapter deployments).
-	- Steps to delete concerto instance from instance table.
-	- Check that assets are updated successfully.
--   Create documentation for testing the adapter.
 
 ### VS Code Formatting
 ```json
@@ -55,3 +54,10 @@
 	"python.formatting.provider": "black",
 }
 ```
+
+=H3/86400+DATE(1970,1,1)
+
+
+
+
+Registration overview
