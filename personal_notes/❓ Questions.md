@@ -1,15 +1,17 @@
 ## To Do
-- Concerto maintenance could take up to 2 hours.
-- Pwrcell v2.0 Release version notes
-- list subscriptions issues
+- (LATER) List subscriptions issues 
+- Complete team documentation on JIRA
 
 
 ## To Ask
-- talk about graphql transaction for create site, create inverter, associate inverter with site
+- (LATER) Talk about graphql transaction for create site, create inverter, associate inverter with site
 
 
-## For Later
-- Why AWS costs are increasing?
+**Team retros**
+- Create toy-example projects for common use utilities like: gql subscription, caching data (elixir)
+- Not knowing which are the actual deployments for some adapters. i.e. PWRCell
+- Which are the "oficial" confluence pages for releases and deployments?
+
 
 
 ## To Remember
@@ -32,17 +34,7 @@
 
 
 ## Other
-
-### Steps To Deploy Adapter And Test It
-- Put new record on instance table
-- Create assets on concerto instance for Pwrcell Adapter
-- Create asset on device table with the information that the telemetry_processor will use.
-- Create VPP and add asset to VPP
-- Create event
-- Check device table for the asset created on concerto.
-
-
-### VS Code Formatting
+- **VS Code Formatting**
 ```json
 {
 	"[python]": {
@@ -52,12 +44,21 @@
 		}
 	},
 	"python.formatting.provider": "black",
+
+	"[elixir]": {
+		"editor.defaultFormatter": "JakeBecker.elixir-ls", %%ElixirLS extension%%
+		"editor.formatOnSave": true,
+		"editor.formatOnType": true,
+		"editor.insertSpaces": true,
+		"editor.tabSize": 2,
+		"editor.trimAutoWhitespace": false,
+		"editor.wordBasedSuggestions": false,
+		"files.insertFinalNewline": true,
+		"files.trimFinalNewlines": true,
+		"files.trimTrailingWhitespace": true
+	}
 }
 ```
 
-=H3/86400+DATE(1970,1,1)
-
-
-
-
-Registration overview
+- **Transform unix datetime in excel**
+	- =H3/86400+DATE(1970,1,1)
