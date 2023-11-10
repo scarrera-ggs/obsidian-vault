@@ -59,3 +59,21 @@ The proof of funds letter must be printed on the financial institution’s lette
 1. Fill your application
 2. Scan and upload all documents
 3. Pay fee ~ $
+
+
+
+## List of documents to gather
+
+- Colombian police certificated
+- Canadian police certificated
+- Canada health check
+- Job offer and payslips
+	- GGS
+	- WIMTACH (5 job contracts)
+	- IYC
+- Travel history 10 years
+- Work permit (Centannial college PGWP and Lastes PGWP)
+- Colombia diploma (spanish)
+	- WES certificate
+- Canadian diploma
+- 
